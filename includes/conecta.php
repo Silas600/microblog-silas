@@ -12,8 +12,8 @@ $conexao = mysqli_connect($servidor, $usuario, $senha, $banco);
 mysqli_set_charset($conexao, "utf8");
 
 // Verificando a conexão
-if($conexao === false){
-    die("Erro: ".mysqli_connect_error());
-} else{
-    echo "Beleza, segue o Jogo...";
-}
+// if($conexao === false){
+//     die("Erro: ".mysqli_connect_error());
+// } else{
+//     echo "Beleza, segue o Jogo...";
+// }
