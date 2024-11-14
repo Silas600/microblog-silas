@@ -8,12 +8,14 @@ function inserirUsuario($conexao, $nome, $email, $senha, $tipo){
             VALUES('$nome', '$email', '$tipo', '$senha')";
 
     // Executando o comando no banco via PHP
-    mysqli_query($conexao, $sql);
+    mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
 
 
 
 
 
 
-    
+
+
+
 }

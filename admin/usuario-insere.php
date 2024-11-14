@@ -1,7 +1,26 @@
 <?php 
 require "../includes/cabecalho-admin.php";
-?>
+require "../includes/funcoes-usuarios.php";
 
+if(isset($_POST['inserir'])){
+	echo "ok!!!";
+
+  // Capturar os dados digitados
+  $nome = $_POST['nome'];
+  $email = $_POST['email'];
+  $tipo = $_POST['tipo'];
+
+  // Captura a senha e a codificando
+  $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+
+  // Executando a função inseriUsuario
+  inserirUsuario($conexao, $nome, $email, $senha, $tipo);
+
+
+  header("location:usuarios.php");
+
+}
+?>
 
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
