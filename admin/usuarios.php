@@ -36,6 +36,8 @@ $listaDeUsuarios = listarUsuarios($conexao);
 <?php foreach ($listaDeUsuarios as $Usuario){ ?>
 					<tr>
 						<td> <?=$Usuario['nome']?></td>
+						<td> <?=$Usuario['email']?></td>
+						<td> <?=$Usuario['tipo']?></td>
 						<td> E-mail... </td>
 						<td> Tipo... </td>
 						<td class="text-center">

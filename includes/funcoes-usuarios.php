@@ -22,3 +22,17 @@ function listarUsuarios($conexao){
     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 
 }
+
+function listarUmUsuarios($conexao, $id){
+    // Comando SELECT para carregar dados de UMA PESSOA através do ID 
+    $sql = "SELECT * FROM usuarios WHERE id = $id";
+
+    // Execucão e verificação do comando SQL
+    $resultado = mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+
+    // Extração dos dados de UMA PESSOA como Array Associativo
+    return mysqli_fetch_assoc($resultado);
+
+
+
+}
