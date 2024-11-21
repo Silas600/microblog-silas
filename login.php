@@ -1,5 +1,36 @@
 <?php
+require "includes/funcoes-controle-de-acesso.php";
+require "includes/funcoes-usuarios.php";
 require "includes/cabecalho.php"; 
+
+
+if(isset($_POST ['entrar'])){
+
+	if(empty($_POST ['email']) || empty($_POST ['senha'])){
+		header("location:login.php?campos_obrigatorios");
+		die();
+	}
+
+
+	// Capturando e-mail e senha 
+	$email = $_POST['email'];
+	$senha = $_POST['senha'];
+
+	// 1) Buscando no banco de dados o usuário através do e-mail
+	$usuario = buscarUsuario($conexao, $email);
+	
+	// 2) tendo um usuário válido, vamos verificar a senha digitada comparando com a senha cadastrada no banco de dados
+
+	if($usuario !== null && password_verify($senha, $usuario['senha'])){
+		login($usuario['id'], $usuario['nome'], $usuario['tipo']);
+
+		// Redirecionar para admin/index.php
+		header("location:admin/index.php");
+	}else{
+		header("location:login.php?dados_incorretos");
+		die();
+	}
+}
 ?>
 
 <div class="row">
