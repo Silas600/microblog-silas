@@ -1,6 +1,11 @@
 <?php
 require "conecta.php";
 
+function executarQuery($conexao, $sql){
+    $consulta = mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+    return $consulta;
+}
+
 // Função para inserir novos usuários
 function inserirUsuario($conexao, $nome, $email, $senha, $tipo){
     // Montando o comando SQL para fazer o insert dos dados 
@@ -8,7 +13,7 @@ function inserirUsuario($conexao, $nome, $email, $senha, $tipo){
             VALUES('$nome', '$email', '$tipo', '$senha')";
 
     // Executando o comando no banco via PHP
-    mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+   executarQuery($conexao, $sql);
 }
 
 function listarUsuarios($conexao){
@@ -16,7 +21,7 @@ function listarUsuarios($conexao){
 
      /* Executando o comando no banco via PHP
      obtendo o resultado ("bruto") da consulta/comando. */
-    $resultado = mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+    $resultado =  executarQuery($conexao, $sql);
 
     /* Extraindo do resultado "bruto" os dados da consulta em formato de ARRAY ASSOCIATIVO. */
     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
@@ -28,7 +33,7 @@ function listarUmUsuarios($conexao, $id){
     $sql = "SELECT * FROM usuarios WHERE id = $id";
 
     // Execucão e verificação do comando SQL
-    $resultado = mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+    $resultado =  executarQuery($conexao, $sql);
 
     // Extração dos dados de UMA PESSOA como Array Associativo
     return mysqli_fetch_assoc($resultado);
@@ -43,10 +48,10 @@ function atualizarUsuario($conexao, $id, $nome, $email, $senha, $tipo){
     WHERE id = $id"; // NÃO ESQUEÇA NUNCA ESSA BAGAÇA!
 
     // COPIE E COLE AQUI O MYSQLI_QUERY DA FUNÇÃO inserirUsuario
-    mysqli_query($conexao, $sql) or die(mysqli_errno($conexao));
+    executarQuery($conexao, $sql);
 }
 
 function excluirUsuario($conexao, $id){
     $sql = "DELETE FROM usuarios WHERE id = $id";
-    mysqli_query($conexao, $sql) or die (mysqli_error($conexao));
+    executarQuery($conexao, $sql);
 }
