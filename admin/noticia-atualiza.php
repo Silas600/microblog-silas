@@ -11,6 +11,33 @@ $tipoUsuario = $_SESSION['tipo'];
 
 $dadosDaNoticia = lerUmaNoticia(
     $conexao, $idNoticia, $idUsuario, $tipoUsuario);
+
+if(isset($_POST['atualizar'])){
+    $titulo = $_POST['titulo'];
+    $texto = $_POST['texto'];
+    $resumo = $_POST['resumo'];
+
+    // Lógica para a imagem
+
+    /* Se o campo "imagem" estiver vazio, então significa que o usuário NÃO QUER MUDAR DE IMAGEM. Portanto, a imagem que já existe continuará (será mantida). */
+    if(empty($_FILES['imagem']['name'])){
+        // Pegamos a imagem/referência que já tem e colocamos na variável
+        $imagem = $_POST['imagem-existente'];
+    }else{
+        // Senão, pegamos a imagem/referência nova e colocamos na variável
+        $imagem = $_FILES['imagem']['name'];
+   
+        // E em seguida, enviamos o arquivo pro servidor
+        upload($_FILES['imagem']);
+    }
+
+    atualizarNoticia(
+        $conexao, $titulo, $texto, $resumo, $imagem, $idNoticia,
+        $idUsuario, $tipoUsuario
+    );
+
+    header("location:noticias.php");
+}
 ?>
 
 

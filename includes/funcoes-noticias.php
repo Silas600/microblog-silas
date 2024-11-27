@@ -59,7 +59,28 @@ function lerUmaNoticia($conexao, $idNoticia, $idUsuario, $tipoUsuario) {
 
 
 // Usada em admin/noticia-atualiza.php
-function atualizarNoticia($conexao) {}
+function atualizarNoticia($conexao, $titulo, $texto, $resumo, $imagem, $idNoticia, $idUsuario, $tipoUsuario) {
+
+    if($tipoUsuario ==='admin'){
+        // Pode atualizar QUALQUER notícia DESDE QUE ELE SAIBA QUAL
+        $sql = "UPDATE noticias SET
+            titulo = '$titulo', texto = '$texto',
+            resumo = '$resumo', imagem = '$imagem'
+            WHERE id = $idNoticia"; // NÃO ESQUECE DE USAR WHERE
+            
+
+    }else {
+        // Senão, pode atualizar SOMENTE SUAS PRÓPRIAS noticia
+        $sql = "UPDATE noticias SET
+                    titulo = '$titulo', texto = '$texto',
+                    resumo = '$resumo',  imagem = '$imagem'
+                    WHERE id = $idNoticia AND usuario_id = $idUsuario";
+    }
+    executarQuery($conexao, $sql);
+}
+
+
+
 
 
 // Usada em admin/noticia-exclui.php
