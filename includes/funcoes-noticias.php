@@ -16,7 +16,7 @@ function inserirNoticia($conexao, $titulo, $texto, $resumo, $nomeDaImagem, $usua
 function lerNoticias($conexao, $idUsuario, $tipoUsuario){
         
         
-        if($tipoUsuario === 'admin'){
+if($tipoUsuario === 'admin'){
             
         $sql = "SELECT
             noticias.id, 
